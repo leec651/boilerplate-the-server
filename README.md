@@ -17,7 +17,7 @@ npm run build
 
 ### Start development express nodemon
 ```
-npm run start
+npm run dev
 ```
 
 
