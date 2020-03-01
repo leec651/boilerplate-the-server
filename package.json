@@ -10,7 +10,9 @@
     "start": "NODE_ENV=production coffee server/index.coffee"
   },
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^2.1.0",
     "app-root-path": "^3.0.0",
+    "autoprefixer": "^9.7.4",
     "body-parser": "^1.19.0",
     "chalk": "^3.0.0",
     "coffeescript": "^2.5.1",
@@ -41,6 +43,7 @@
     "coffee-loader": "^0.9.0",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
+    "vue-cli-plugin-coffeescript": "0.0.3",
     "vue-template-compiler": "^2.6.11"
   }
 }
