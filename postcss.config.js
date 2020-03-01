@@ -1,25 +1,22 @@
-const autoprefixer = require('autoprefixer')
-const tailwindcss = require('tailwindcss')
-const postcssPurgecss = require(`@fullhuman/postcss-purgecss`)
+const plugins = [ require('tailwindcss') ]
 
-// https://github.com/ky-is/vue-cli-plugin-tailwind
-const purgecss = postcssPurgecss({
-  // Specify the paths to all of the template files in your project.
-  content: [
-    './public/**/*.html',
-    './client/**/*.vue',
-  ],
-  // Include any special characters you're using in this regular expression.
-  // See: https://tailwindcss.com/docs/controlling-file-size/#understanding-the-regex
-  defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
-  // Whitelist auto generated classes for transitions and router links.
-  whitelistPatterns: [/-(leave|enter|appear)(|-(to|from|active))$/, /^(?!(|.*?:)cursor-move).+-move$/, /^router-link(|-exact)-active$/],
-});
+// no need unless we want to add vendor specific prefixes
+// plugins.push(require('autoprefixer'))
 
-module.exports = {
-  plugins: [
-    tailwindcss,
-    autoprefixer,
-    ...process.env.NODE_ENV === 'production' ? [purgecss] : [],
-  ],
+if (process.env.NODE_ENV === 'production') {
+
+  // reference: https://tailwindcss.com/docs/controlling-file-size/
+  const purgecss = require(`@fullhuman/postcss-purgecss`)({
+    // Specify the paths to all of the template files in your project
+    content: [
+      './src/**/*.html',
+      './src/**/*.vue',
+      './src/**/*.coffee',
+    ],
+    // Include any special characters you're using in this regular expression.
+    defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
+  })
+  plugins.push(purgecss)
 }
+
+module.exports = { plugins }

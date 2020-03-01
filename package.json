@@ -2,13 +2,13 @@
   "name": "the-server",
   "version": "0.1.0",
   "private": true,
-  "main": "server/index.coffee",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "dev": "NODE_ENV=development nodemon",
     "start": "NODE_ENV=production coffee server/index.coffee"
   },
+  "main": "server/index.coffee",
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.1.0",
     "app-root-path": "^3.0.0",
@@ -41,9 +41,12 @@
     "@vue/cli-plugin-vuex": "~4.2.0",
     "@vue/cli-service": "~4.2.0",
     "coffee-loader": "^0.9.0",
+    "coffeescript": "^2.3.2",
+    "pug": "^2.0.4",
+    "pug-plain-loader": "^1.0.0",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
-    "vue-cli-plugin-coffeescript": "0.0.3",
+    "vue-cli-plugin-coffee": "~0.1.0",
     "vue-template-compiler": "^2.6.11"
   }
 }
