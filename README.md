@@ -15,5 +15,13 @@ npm run serve
 npm run build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Start development express nodemon
+```
+npm run start
+
+
+### Start production express service
+```
+npm run start
+```
+

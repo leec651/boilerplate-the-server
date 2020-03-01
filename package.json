@@ -2,21 +2,43 @@
   "name": "the-server",
   "version": "0.1.0",
   "private": true,
+  "main": "server/index.coffee",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "dev": "NODE_ENV=development nodemon",
+    "start": "NODE_ENV=production coffee server/index.coffee"
   },
   "dependencies": {
+    "app-root-path": "^3.0.0",
+    "body-parser": "^1.19.0",
+    "chalk": "^3.0.0",
+    "coffeescript": "^2.5.1",
+    "compression": "^1.7.4",
+    "connect-mongo": "^3.2.0",
+    "connect-redis": "^4.0.4",
+    "cookie-parser": "^1.4.4",
     "core-js": "^3.6.4",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "express-validator": "^6.4.0",
+    "method-override": "^3.0.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.9.2",
+    "node-emoji": "^1.10.0",
+    "passport": "^0.4.1",
+    "tailwindcss": "^1.2.0",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
-    "vuex": "^3.1.2"
+    "vuex": "^3.1.2",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-plugin-router": "~4.2.0",
     "@vue/cli-plugin-vuex": "~4.2.0",
     "@vue/cli-service": "~4.2.0",
+    "coffee-loader": "^0.9.0",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.6.11"
