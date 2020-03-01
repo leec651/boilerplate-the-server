@@ -17,6 +17,9 @@ config =
     name: "sessionId",
     # Mongo store collection name
     collection: "sessions"
+    autoReconnect: true
+    autoRemove: 'interval'
+    autoRemoveInterval: 10 # default
     cookie:
       # session expiration is set by default to one week
       maxAge: 7 * 24 * (60 * 60 * 1000)

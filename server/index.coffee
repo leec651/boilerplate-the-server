@@ -1,4 +1,4 @@
-moment      = require 'moment'
+dayjs       = require 'dayjs'
 config      = require './config'
 logger      = require './core/logger'
 chalk       = require './core/chalk'
@@ -8,7 +8,7 @@ app         = require './core/express'
 # start server
 app.listen config.port, config.ip, () ->
   logger.info "--------------------------------------------------"
-  logger.info "Server starting at: " + chalk.pink(moment().format("MM/DD/YYYY HH:mm:ss"))
+  logger.info "Server starting at: " + chalk.pink(dayjs().format("MM/DD/YYYY HH:mm:ss"))
   logger.info "Environment:        " + chalk.pink(process.env.NODE_ENV)
   logger.info "IP:                 " + chalk.pink(config.ip)
   logger.info "Port:               " + chalk.pink(config.port)

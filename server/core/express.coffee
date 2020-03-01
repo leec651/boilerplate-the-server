@@ -1,6 +1,6 @@
 express          = require 'express'
 session          = require 'express-session'
-moment           = require 'moment'
+dayjs            = require 'dayjs'
 compress         = require 'compression'
 bodyParser       = require 'body-parser'
 methodOverride   = require 'method-override'
@@ -51,6 +51,8 @@ initSession = (app) ->
       mongooseConnection: db
       collection: config.sessions.collection
       autoReconnect: true
+      autoRemove: 'interval',
+      autoRemoveInterval: 10
     })
     cookie: config.sessions.cookie
     name: config.sessions.name
@@ -67,7 +69,7 @@ initAuth = (app) ->
 app = express()
 app.set "port", config.port
 app.set 'service', 'the server'
-app.locals.year = moment().format("YYYY")
+app.locals.year = dayjs().format("YYYY")
 app.locals.app =
   name: pkg.name
   version: pkg.version
