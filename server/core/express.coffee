@@ -21,8 +21,10 @@ db               = require root.resolve 'server/core/mongo'
 MongoStore       = require('connect-mongo')(session)
 
 
+
 setUpText = (item) ->
   logger.info "Set up #{chalk.blue(item)}"
+
 
 initMiddleware = (app) ->
   setUpText "compressor"
@@ -64,10 +66,12 @@ initMiddleware = (app) ->
   if config.isDev()
     setUpText 'morgan'
     morgan = require 'morgan'
-    stream = require 'stream'
-    stream = new stream.Stream()
-    stream.writable = true
-    stream.write = (data) -> return logger.info(data)
+    { Writable } = require 'stream'
+    # use stream to use logger instead of console
+    stream = new Writable
+      write: (data, encoding, cb) ->
+        logger.info data
+        return cb()
     app.use morgan("dev", { stream })
 
 
@@ -87,6 +91,7 @@ initSession = (app) ->
     name: config.sessions.name
   setUpText "session with mongo"
 
+
 initHelmetHeaders = (app) ->
   setUpText "use helmet for secure express headers"
   app.use helmet.xssFilter()
@@ -95,6 +100,7 @@ initHelmetHeaders = (app) ->
   app.use helmet.ieNoOpen()
   app.use crossdomain()
   app.use helmet.hidePoweredBy()
+
 
 initAuth = (app) ->
   setUpText "passport"
