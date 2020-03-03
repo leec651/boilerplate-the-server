@@ -5,14 +5,19 @@ compress         = require 'compression'
 bodyParser       = require 'body-parser'
 methodOverride   = require 'method-override'
 cookieParser     = require 'cookie-parser'
-passport         = require 'passport'
+i18n             = require 'i18n'
+cors             = require 'cors'
+compression      = require 'compression'
+helmet           = require 'helmet'
+crossdomain      = require 'helmet-crossdomain'
 
 root             = require 'app-root-path'
-pkg              = require root.resolve('package.json')
-config           = require root.resolve('server/config')
-chalk            = require root.resolve('server/core/chalk')
-logger           = require root.resolve('server/core/logger')
-db               = require root.resolve('server/core/mongo')
+pkg              = require root.resolve 'package.json'
+config           = require root.resolve 'server/config'
+chalk            = require root.resolve 'server/core/chalk'
+logger           = require root.resolve 'server/core/logger'
+passport         = require root.resolve 'server/core/passport'
+db               = require root.resolve 'server/core/mongo'
 MongoStore       = require('connect-mongo')(session)
 
 
@@ -32,6 +37,21 @@ initMiddleware = (app) ->
     extended: true
     limit: config.contentMaxLength * 2
 
+  setUpText "i18n"
+  i18n.configure({
+    locales: ['en', 'es']
+    directory: root.resolve('server/locales')
+    defaultLocale: 'en'
+    objectNotation: true
+  })
+  app.use(i18n.init)
+
+  setUpText "compression"
+  app.use(compression())
+  setUpText "helmet"
+  app.use(helmet())
+  setUpText "cors"
+  app.use cors()
   setUpText "static path"
   app.use(express.static(root.resolve('dist'), { maxAge: 30 * 60 * 60 * 24 * 1000 }))
   setUpText "methods override"
@@ -40,6 +60,15 @@ initMiddleware = (app) ->
   app.use cookieParser()
   setUpText "cookie parser"
   app.use bodyParser.json()
+
+  if config.isDev()
+    setUpText 'morgan'
+    morgan = require 'morgan'
+    stream = require 'stream'
+    stream = new stream.Stream()
+    stream.writable = true
+    stream.write = (data) -> return logger.info(data)
+    app.use morgan("dev", { stream })
 
 
 initSession = (app) ->
@@ -58,11 +87,18 @@ initSession = (app) ->
     name: config.sessions.name
   setUpText "session with mongo"
 
+initHelmetHeaders = (app) ->
+  setUpText "use helmet for secure express headers"
+  app.use helmet.xssFilter()
+  app.use helmet.noSniff()
+  app.use helmet.frameguard()
+  app.use helmet.ieNoOpen()
+  app.use crossdomain()
+  app.use helmet.hidePoweredBy()
 
 initAuth = (app) ->
   setUpText "passport"
-  # https://www.npmjs.com/package/passport
-  # no auth needed for this app
+  passport app
 
 
 # create our express app
@@ -79,6 +115,7 @@ app.locals.root = root.path
 # Set up our express app
 initMiddleware(app)
 initSession(app)
+initHelmetHeaders(app)
 initAuth(app)
 
 # register routes

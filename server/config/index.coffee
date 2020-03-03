@@ -6,7 +6,7 @@ chalk   = require "chalk"
 
 config =
   isDev: ->
-    return not process.env.NODE_ENV || process.env.NODE_ENV == "dev";
+    return not process.env.NODE_ENV || process.env.NODE_ENV == "development";
   isProd: ->
     return process.env.NODE_ENV == "production";
 
