@@ -1,5 +1,5 @@
-root     = require 'app-root-path'
-config   = require root.resolve('server/config')
+root    = require 'app-root-path'
+config  = require root.resolve('server/config')
 
 module.exports = (app) ->
 

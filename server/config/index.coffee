@@ -1,7 +1,7 @@
-path    = require "path"
-fs      = require "fs"
-_       = require "lodash"
-chalk   = require "chalk"
+path   = require "path"
+fs     = require "fs"
+_      = require "lodash"
+chalk  = require "chalk"
 
 
 config =

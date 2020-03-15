@@ -1,5 +1,5 @@
-config      = require "../config"
-logger      = require "../core/logger"
+config  = require "../config"
+logger  = require "../core/logger"
 
 module.exports = (app) ->
   app.get "/health", (req, res) ->

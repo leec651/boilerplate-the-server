@@ -1,24 +1,24 @@
-express          = require 'express'
-session          = require 'express-session'
-dayjs            = require 'dayjs'
-compress         = require 'compression'
-bodyParser       = require 'body-parser'
-methodOverride   = require 'method-override'
-cookieParser     = require 'cookie-parser'
-i18n             = require 'i18n'
-cors             = require 'cors'
-compression      = require 'compression'
-helmet           = require 'helmet'
-crossdomain      = require 'helmet-crossdomain'
+express      = require 'express'
+session      = require 'express-session'
+dayjs        = require 'dayjs'
+compress     = require 'compression'
+bodyParser   = require 'body-parser'
+methodOverr  = require 'method-override'
+cookieParse  = require 'cookie-parser'
+i18n         = require 'i18n'
+cors         = require 'cors'
+compression  = require 'compression'
+helmet       = require 'helmet'
+crossdomain  = require 'helmet-crossdomain'
+root         = require 'app-root-path'
 
-root             = require 'app-root-path'
-pkg              = require root.resolve 'package.json'
-config           = require root.resolve 'server/config'
-chalk            = require root.resolve 'server/core/chalk'
-logger           = require root.resolve 'server/core/logger'
-passport         = require root.resolve 'server/core/passport'
-db               = require root.resolve 'server/core/mongo'
-MongoStore       = require('connect-mongo')(session)
+pkg          = require root.resolve 'package.json'
+config       = require root.resolve 'server/config'
+chalk        = require root.resolve 'server/core/chalk'
+logger       = require root.resolve 'server/core/logger'
+passport     = require root.resolve 'server/core/passport'
+db           = require root.resolve 'server/core/mongo'
+MongoStore   = require('connect-mongo')(session)
 
 
 
@@ -65,8 +65,8 @@ initMiddleware = (app) ->
 
   if config.isDev()
     setUpText 'morgan'
-    morgan = require 'morgan'
-    { Writable } = require 'stream'
+    m  = require 'morgan'
+    { Writa  = require 'stream'
     # use stream to use logger instead of console
     stream = new Writable
       write: (data, encoding, cb) ->

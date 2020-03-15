@@ -1,8 +1,8 @@
-dayjs       = require 'dayjs'
-config      = require './config'
-logger      = require './core/logger'
-chalk       = require './core/chalk'
-app         = require './core/express'
+dayjs   = require 'dayjs'
+config  = require './config'
+logger  = require './core/logger'
+chalk   = require './core/chalk'
+app     = require './core/express'
 
 
 # start server
