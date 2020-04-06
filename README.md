@@ -20,9 +20,14 @@ mkdir -p ~/data/db
 mongod='mongod --dbpath ~/data/db'
 ```
 
-Install node coffeescript
+Install node and npm
 ```
-npm install node coffeescript -g
+brew install node npm
+```
+
+(optional) Install coffeescript 2
+```
+npm install coffeescript -g
 ```
 
 Install all node dependencies
