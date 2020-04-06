@@ -1,6 +1,6 @@
 <template lang="pug">
-  div#app
-    div#nav
+  div#app.bg-black
+    div.pt-8
       router-link(to="/") Home |&nbsp;
       router-link(to="/about") About
     router-view
@@ -12,6 +12,7 @@
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
   text-align center
-  color #2c3e50
-  margin-top 60px
+  color #ffffff
+  height 100vh
 </style>
+
