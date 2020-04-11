@@ -65,8 +65,8 @@ initMiddleware = (app) ->
 
   if config.isDev()
     setUpText 'morgan'
-    m = require 'morgan'
-    { Writa } = require 'stream'
+    morgan = require 'morgan'
+    { Writable } = require 'stream'
     # use stream to use logger instead of console
     stream = new Writable
       write: (data, encoding, cb) ->
