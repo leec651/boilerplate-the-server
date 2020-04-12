@@ -1,9 +1,9 @@
+moment   = require 'moment'
 winston  = require 'winston'
 mkdirp   = require 'mkdirp'
 fs       = require 'fs'
 path     = require 'path'
-root     = require 'app-root-path'
-config   = require root.resolve('server/config')
+config   = require '../config'
 
 
 # Create logs directory if not exists
@@ -11,37 +11,29 @@ logDir = config.logging.file.path;
 if not fs.existsSync(logDir)
   mkdirp logDir
 
-# configure log format & level
-{ combine, timestamp, label, printf } = winston.format
-myFormat = printf ({ level, message, label, timestamp }) ->
-  return "#{timestamp} [#{level}]: #{message}"
+{format, createLogger, transports} = winston
+prettyJson = format.printf (info) ->
+  if info.message.constructor == Object
+    info.message = JSON.stringify(info.message, null, 2)
+  time = moment(info.timestamp).format('YYYY-MM-DD HH:mm:ss')
+  return "#{time} #{info.level}: #{info.message}"
 
 logger = null
-
 if not logger
-  logger = winston.createLogger
+  logger = createLogger
     level: 'info'
-    format: combine(timestamp(), myFormat)
+    format: format.combine(
+      format.colorize(),
+      format.prettyPrint(),
+      format.splat(),
+      format.simple(),
+      prettyJson,
+    )
     transports: [
-      # Write to all logs with level `info` and below to `combined.log`
-      # Write all logs error (and below) to `error.log`.
       new winston.transports.File
         filename: path.join(logDir, 'error.log')
         level: 'error'
-      new winston.transports.File
-        filename: path.join(logDir, 'service.log')
-      new winston.transports.Console({
-        colorize: true
-        prettyPrint: true,
-        format: combine(timestamp(), myFormat)
-      })
+      new transports.Console({})
     ]
-
-  # if process.env.NODE_ENV != 'production'
-  #   logger.add(new winston.transports.Console({
-  #     colorize: true
-  #     prettyPrint: true,
-  #     format: combine(timestamp(), myFormat)
-  #   }))
 
 module.exports = logger

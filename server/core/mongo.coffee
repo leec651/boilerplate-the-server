@@ -1,9 +1,8 @@
 mongoose  = require 'mongoose'
-root      = require 'app-root-path'
 
-chalk     = require root.resolve('server/core/chalk')
-logger    = require root.resolve('server/core/logger')
-config    = require root.resolve('server/config')
+chalk     = require '../core/chalk'
+logger    = require '../core/logger'
+config    = require '../config'
 
 mongoose.set 'useCreateIndex', true
 mongoose.connect config.db.server, config.db.options

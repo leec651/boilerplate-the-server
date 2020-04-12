@@ -24,3 +24,4 @@ yarn-error.log*
 todo.txt
 cc.*
 .DS_Store
+locales/

@@ -1,6 +1,6 @@
 express         = require 'express'
 session         = require 'express-session'
-dayjs           = require 'dayjs'
+moment          = require 'moment'
 compress        = require 'compression'
 bodyParser      = require 'body-parser'
 methodOverride  = require 'method-override'
@@ -13,18 +13,16 @@ crossdomain     = require 'helmet-crossdomain'
 root            = require 'app-root-path'
 
 pkg             = require root.resolve 'package.json'
-config          = require root.resolve 'server/config'
-chalk           = require root.resolve 'server/core/chalk'
-logger          = require root.resolve 'server/core/logger'
-passport        = require root.resolve 'server/core/passport'
-db              = require root.resolve 'server/core/mongo'
+config          = require '../config'
+chalk           = require '../core/chalk'
+logger          = require '../core/logger'
+passport        = require '../core/passport'
+db              = require '../core/mongo'
 MongoStore      = require('connect-mongo')(session)
-
 
 
 setUpText = (item) ->
   logger.info "Set up #{chalk.blue(item)}"
-
 
 initMiddleware = (app) ->
   setUpText "compressor"
@@ -42,7 +40,7 @@ initMiddleware = (app) ->
   setUpText "i18n"
   i18n.configure({
     locales: ['en', 'es']
-    directory: root.resolve('server/locales')
+    directory: root.resolve('locales')
     defaultLocale: 'en'
     objectNotation: true
   })
@@ -74,7 +72,6 @@ initMiddleware = (app) ->
         return cb()
     app.use morgan("dev", { stream })
 
-
 initSession = (app) ->
   app.use session
     saveUninitialized: true,
@@ -91,7 +88,6 @@ initSession = (app) ->
     name: config.sessions.name
   setUpText "session with mongo"
 
-
 initHelmetHeaders = (app) ->
   setUpText "use helmet for secure express headers"
   app.use helmet.xssFilter()
@@ -100,7 +96,6 @@ initHelmetHeaders = (app) ->
   app.use helmet.ieNoOpen()
   app.use crossdomain()
   app.use helmet.hidePoweredBy()
-
 
 initAuth = (app) ->
   setUpText "passport"
@@ -111,7 +106,7 @@ initAuth = (app) ->
 app = express()
 app.set "port", config.port
 app.set 'service', 'the server'
-app.locals.year = dayjs().format("YYYY")
+app.locals.year = moment().format("YYYY")
 app.locals.app =
   name: pkg.name
   version: pkg.version
