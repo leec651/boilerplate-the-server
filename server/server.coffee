@@ -6,10 +6,10 @@ app     = require './core/express'
 
 
 app.listen config.port, config.ip, () ->
-  logger.info "env    " + pink(process.env.NODE_ENV)
-  logger.info "ip     " + pink(config.ip)
-  logger.info "port   " + pink(config.port)
-  logger.info "db     " + pink(config.db.server)
-  logger.info "redis  " + pink(if config.redis.enabled then config.redis.uri else "Disabled")
+  logger.info "Env    " + pink(process.env.NODE_ENV)
+  logger.info "IP     " + pink(config.ip)
+  logger.info "Port   " + pink(config.port)
+  logger.info "DB     " + pink(config.db.server)
+  logger.info "Redis  " + pink(if config.redis.enabled then config.redis.uri else "Disabled")
 
 exports = module.exports = app
