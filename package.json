@@ -5,10 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "dev": "NODE_ENV=development nodemon server/index.coffee",
-    "start": "NODE_ENV=production coffee server/index.coffee"
+    "dev": "NODE_ENV=development nodemon server/server.coffee",
+    "start": "NODE_ENV=production coffee server/server.coffee"
   },
-  "main": "server/index.coffee",
+  "main": "server/server.coffee",
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.1.0",
     "app-root-path": "^3.0.0",
