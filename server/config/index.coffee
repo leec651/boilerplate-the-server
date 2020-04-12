@@ -1,7 +1,7 @@
-path   = require "path"
 fs     = require "fs"
 _      = require "lodash"
 chalk  = require "chalk"
+root   = require 'app-root-path'
 
 
 config =
@@ -11,7 +11,7 @@ config =
     return process.env.NODE_ENV == "production";
 
   ip: process.env.NODE_IP || "0.0.0.0",
-  port: process.env.PORT || 2000,
+  port: process.env.PORT || 3000,
   sessions:
     # Cookie key name
     name: "sessionId",
@@ -43,7 +43,7 @@ config =
   logging:
     file:
       enabled: false
-      path: path.join(__dirname, "..", "..", "logs")
+      path: root.resolve("logs")
       level: "info"
       json: false
       exceptionFile: true
